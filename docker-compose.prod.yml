@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3333:3333"
+    env_file:
+      - ./.env
+    command: ["sh", "-c", "pnpm prisma migrate deploy && node dist/shared/server.cjs"]
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: always
+    networks:
+      - my-network
+
+  database:
+    container_name: postgres
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,39 @@
+{
+  "name": "experian-challenge-api",
+  "version": "1.0.0",
+  "description": "Api for the experian technical challenge",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/shared/server.ts",
+    "dev": "tsx watch src/shared/server.ts | pino-pretty",
+    "build": "tsup src",
+    "lint:format": "npx @biomejs/biome format --write ./src",
+    "lint:apply": "npx @biomejs/biome lint --apply ./src",
+    "lint:fix": "npx @biomejs/biome check --apply ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "pg": "^8.12.0",
+    "pino-http": "^10.3.0",
+    "pino-pretty": "^11.2.2",
+    "prisma": "^5.19.1",
+    "tsup": "^8.2.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}
