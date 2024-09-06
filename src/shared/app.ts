@@ -11,7 +11,7 @@ import { handleErrorMiddleware } from "./middlewares/handle-error";
 export const app = express();
 
 const stream = pinoPretty({
-  colorize: true,
+	colorize: true,
 });
 
 app.use(express.json());
@@ -20,10 +20,10 @@ app.use(pino(stream));
 app.use("/farmers", farmersRoutes);
 
 app.use("/hello-world", (_request, res) =>
-  res.json({
-    date: new Date().toISOString(),
-    status: "ok",
-  })
+	res.json({
+		date: new Date().toISOString(),
+		status: "ok",
+	}),
 );
 
 app.use(handleErrorMiddleware);

@@ -6,12 +6,12 @@ const farmersRoutes = Router();
 
 farmersRoutes.get("", farmersController.getAll);
 
-farmersRoutes.get("/:id", farmersController.get);
+farmersRoutes.get("/:id", farmersController.getById);
 
 farmersRoutes.post("", farmersController.create);
 
-farmersRoutes.patch("/:id", farmersController.update);
+farmersRoutes.patch("/:id", farmersController.updateById);
 
-farmersRoutes.delete("/:id", farmersController.remove);
+farmersRoutes.delete("/:id", farmersController.removeById);
 
 export default farmersRoutes;

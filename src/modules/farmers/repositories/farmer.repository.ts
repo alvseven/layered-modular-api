@@ -1,10 +1,26 @@
-import { prisma } from "../../../shared/database/prisma-client";
+import {
+  prisma,
+  type FarmerModel,
+} from "../../../shared/database/prisma-client";
+
+import type { StrictOmit } from "@/shared/helpers/types/strict-omit";
+
+/*  
+  The FarmerModel serves as the contract (source of truth), so we avoid creating redundant types manually, which is also less error-prone.
+  Instead, we leverage the existing types derived from the model to ensure consistency and reduce duplication.
+*/
 
 export const farmersRepository = () => {
   const repository = prisma.farmer;
 
-  const get = (id: string) => {
+  const getById = (id: FarmerModel["id"]) => {
     const farmerFound = repository.findUnique({ where: { id } });
+
+    return farmerFound;
+  };
+
+  const getByDocument = (document: FarmerModel["document"]) => {
+    const farmerFound = repository.findUnique({ where: { document } });
 
     return farmerFound;
   };
@@ -15,13 +31,18 @@ export const farmersRepository = () => {
     return farmers;
   };
 
-  const create = async (data: any) => {
-    const createdFarmer = await repository.create(data);
+  const create = async (
+    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt">
+  ) => {
+    const createdFarmer = await repository.create({ data });
 
     return createdFarmer;
   };
 
-  const update = async (id: string, data: any) => {
+  const updateById = async (
+    id: FarmerModel["id"],
+    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt" | "document">
+  ) => {
     const updatedFarmer = await repository.update({
       where: { id },
       data,
@@ -30,7 +51,7 @@ export const farmersRepository = () => {
     return updatedFarmer;
   };
 
-  const remove = async (id: string) => {
+  const removeById = async (id: FarmerModel["id"]) => {
     await repository.delete({
       where: {
         id,
@@ -39,10 +60,11 @@ export const farmersRepository = () => {
   };
 
   return {
-    get,
+    getById,
+    getByDocument,
     getAll,
     create,
-    update,
-    remove,
+    updateById,
+    removeById,
   };
 };
