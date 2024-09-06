@@ -8,9 +8,9 @@
     "start": "tsx src/shared/server.ts",
     "dev": "tsx watch src/shared/server.ts | pino-pretty",
     "build": "tsup src",
-    "lint:format": "npx @biomejs/biome format --write ./src",
-    "lint:apply": "npx @biomejs/biome lint --apply ./src",
-    "lint:fix": "npx @biomejs/biome check --apply ./src"
+    "lint:format": "pnpm dlx @biomejs/biome format --write ./src",
+    "lint:apply": "pnpm dlx @biomejs/biome lint --write ./src",
+    "lint:fix": "pnpm dlx @biomejs/biome check --write ./src"
   },
   "keywords": [],
   "author": "",
