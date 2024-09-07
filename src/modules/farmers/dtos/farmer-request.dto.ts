@@ -33,8 +33,19 @@ export const getFarmerByIdRequestDto = (data: unknown) => {
 };
 
 export const createFarmerRequestDto = (data: unknown) => {
+  const cropSchema = z.object({
+    name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
+  });
+
   const createFarmerRequestSchema = z.object({
-    name: z.string().min(3),
+    producerName: z.string().min(3),
+    farmName: z.string().min(3),
+    city: z.string().min(5),
+    state: z.string().length(2),
+    totalArea: z.number().positive().gt(0),
+    arableArea: z.number().positive().gt(0),
+    vegetationArea: z.number().positive().gt(0),
+    crops: z.array(cropSchema),
     document: z.union([z.string().length(11), z.string().length(14)]),
   });
 
@@ -42,9 +53,21 @@ export const createFarmerRequestDto = (data: unknown) => {
 };
 
 export const updateFarmerByIdRequestDto = (data: unknown) => {
+  const cropSchema = z.object({
+    name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
+  });
+
   const updateFarmerRequestSchema = z.object({
     id: z.string().uuid(),
-    name: z.string().min(3),
+    producerName: z.string().min(3),
+    farmName: z.string().min(3),
+    city: z.string().min(5),
+    state: z.string().length(2),
+    totalArea: z.number().positive().gt(0),
+    arableArea: z.number().positive().gt(0),
+    vegetationArea: z.number().positive().gt(0),
+    crops: z.array(cropSchema),
+    document: z.union([z.string().length(11), z.string().length(14)]),
   });
 
   return validate(updateFarmerRequestSchema, data);

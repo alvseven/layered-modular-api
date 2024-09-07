@@ -41,7 +41,7 @@ export const farmersRepository = () => {
 
   const updateById = async (
     id: FarmerModel["id"],
-    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt" | "document">
+    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt">
   ) => {
     const updatedFarmer = await repository.update({
       where: { id },
