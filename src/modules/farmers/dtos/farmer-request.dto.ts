@@ -40,13 +40,13 @@ export const createFarmerRequestDto = (data: unknown) => {
   const createFarmerRequestSchema = z.object({
     producerName: z.string().min(3),
     farmName: z.string().min(3),
-    city: z.string().min(5),
+    document: z.union([z.string().length(11), z.string().length(14)]),
     state: z.string().length(2),
+    city: z.string().min(3),
     totalArea: z.number().positive().gt(0),
     arableArea: z.number().positive().gt(0),
     vegetationArea: z.number().positive().gt(0),
     crops: z.array(cropSchema),
-    document: z.union([z.string().length(11), z.string().length(14)]),
   });
 
   return validate(createFarmerRequestSchema, data);

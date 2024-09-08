@@ -20,7 +20,6 @@ const handleErrorMiddleware = async (
   return response.status(500).json({
     message: "Internal server error",
     ...(isDebugMode && { stack: error.stack }),
-    stack: error.stack,
   });
 };
 

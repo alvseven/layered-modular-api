@@ -28,7 +28,7 @@ export const getById = async (request: Request, response: Response) => {
       .json({ status: "error", errors: parsedRequest.errors });
   }
 
-  const result = await farmersService.getById(request.params.id);
+  const result = await farmersService.getById(parsedRequest.data);
 
   return handleResponse(result, response);
 };
@@ -40,7 +40,7 @@ export const getAll = async (_request: Request, response: Response) => {
 };
 
 export const create = async (request: Request, response: Response) => {
-  const parsedRequest = createFarmerRequestDto(request.params.id);
+  const parsedRequest = createFarmerRequestDto(request.body);
 
   if (!parsedRequest.success) {
     return response
@@ -48,13 +48,16 @@ export const create = async (request: Request, response: Response) => {
       .json({ status: "error", errors: parsedRequest.errors });
   }
 
-  const result = await farmersService.create(request.body);
+  const result = await farmersService.create(parsedRequest.data);
 
   return handleResponse(result, response);
 };
 
 export const updateById = async (request: Request, response: Response) => {
-  const parsedRequest = updateFarmerByIdRequestDto(request.params.id);
+  const parsedRequest = updateFarmerByIdRequestDto({
+    ...request.params,
+    ...request.body,
+  });
 
   if (!parsedRequest.success) {
     return response
@@ -62,10 +65,7 @@ export const updateById = async (request: Request, response: Response) => {
       .json({ status: "error", errors: parsedRequest.errors });
   }
 
-  const result = await farmersService.updateById({
-    ...request.params,
-    ...request.body,
-  });
+  const result = await farmersService.updateById(parsedRequest.data);
 
   return handleResponse(result, response);
 };
@@ -79,7 +79,7 @@ export const removeById = async (request: Request, response: Response) => {
       .json({ status: "error", errors: parsedRequest.errors });
   }
 
-  const result = await farmersService.removeById(request.params.id);
+  const result = await farmersService.removeById(parsedRequest.data);
 
   return handleResponse(result, response);
 };

@@ -19,7 +19,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"skipLibCheck": true,
-        "useUnknownInCatchVariables": true,
 		"typeRoots": ["node", "src/shared/@types", "./node_modules/@types"]
 	},	
 	"exclude": ["node_modules"]

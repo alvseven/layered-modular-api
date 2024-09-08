@@ -42,7 +42,7 @@ model Crop {
 
   farmerId String
 
-  farmer Farmer @relation(fields: [farmerId], references: [id])
+  farmer Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
 
   @@map("crops")
 }

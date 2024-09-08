@@ -19,22 +19,30 @@ services:
       - "3333:3333"
     env_file:
       - ./.env
-    command: ["sh", "-c", "pnpm dev"]
+    command: ["sh", "-c", "pnpm prisma migrate deploy && pnpm dev"]
     depends_on:
       database:
         condition: service_healthy
     restart: always
-    networks:
-      - api-network
 
+  api-test:
+    container_name: api-test
+    <<: *base-api
+    ports:
+      - "3334:3334"
+    env_file:
+      - ./.env.test
+    command: ["sh", "-c", "pnpm prisma migrate deploy && pnpm dev"]
+    depends_on:
+      database-test:
+        condition: service_healthy
+    restart: always
 
   database:
     container_name: postgres
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    expose:
-      - "5432"
     ports:
       - 5432:5432
     env_file:
@@ -44,12 +52,19 @@ services:
       interval: 5s
       timeout: 10s
       retries: 10
-    networks:
-      - api-network
+
+  database-test:
+    container_name: postgres-test
+    image: postgres:16
+    ports:
+      - 5433:5432
+    env_file:
+      - ./.env.test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
 
 volumes:
   postgres_data:
-
-networks:
-  api-network:
-    driver: bridge

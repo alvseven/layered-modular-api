@@ -8,6 +8,7 @@
     "start": "tsx src/shared/server.ts",
     "dev": "tsx watch src/shared/server.ts | pino-pretty",
     "build": "tsup src",
+    "test:e2e": "vitest",
     "lint:format": "pnpm dlx @biomejs/biome format --write ./src",
     "lint:apply": "pnpm dlx @biomejs/biome lint --write ./src",
     "lint:fix": "pnpm dlx @biomejs/biome check --write ./src"
@@ -29,8 +30,10 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "20.16.5",
-    "tsx": "^4.19.0",
+    "axios": "^1.7.7",
     "prisma": "5.19.1",
-    "typescript": "^5.5.4"
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }

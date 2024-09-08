@@ -1,6 +1,7 @@
 import {
-  prisma,
   type FarmerModel,
+  prisma,
+  CropModel,
 } from "../../../shared/database/prisma-client";
 
 import type { StrictOmit } from "@/shared/helpers/types/strict-omit";
@@ -26,15 +27,33 @@ export const farmersRepository = () => {
   };
 
   const getAll = () => {
-    const farmers = repository.findMany();
+    const farmers = repository.findMany({
+      include: {
+        crops: true,
+      },
+    });
 
     return farmers;
   };
 
   const create = async (
-    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt">
+    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt"> & {
+      crops: Array<Pick<CropModel, "name">>;
+    }
   ) => {
-    const createdFarmer = await repository.create({ data });
+    const createdFarmer = await repository.create({
+      data: {
+        ...data,
+        crops: {
+          create: data.crops.map((crop) => ({
+            name: crop.name,
+          })),
+        },
+      },
+      include: {
+        crops: true,
+      },
+    });
 
     return createdFarmer;
   };
