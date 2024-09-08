@@ -11,6 +11,7 @@ RUN pnpm install
 
 COPY . .
 
+RUN pnpm dlx prisma generate
 RUN pnpm run build
 
 FROM node:20.11.1-alpine
