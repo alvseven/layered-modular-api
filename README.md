@@ -76,37 +76,24 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 
 3. Inicie a aplicação
     ```
-    make dev
+    pnpm dev
     ```
-
-> [!WARNING]  
-> O comando `make dev` no Windows pode não funcionar, neste caso, utilize o comando equivalente definido no `Makefile`:
-    `docker compose up api`
-
 
 # Rodando o seed
 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
     ```
-    make db-seed
+    pnpm db:seed
     ```
-
-> [!WARNING]  
-> O comando `make db-seed` no Windows pode não funcionar, neste caso, utilize o comando equivalente definido no `Makefile`:
-    `docker compose up api`
 
 # Rodando os testes end-to-end
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
 ```bash
-make test-e2e
+pnpm docker:test
 ```
-
-> [!WARNING]  
-> O comando `make test-e2e` no Windows pode não funcionar, neste caso, utilize o comando equivalente definido no `Makefile`:
-    `docker compose up api-test`
 
 # Arquitetura da Aplicação
 

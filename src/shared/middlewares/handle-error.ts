@@ -4,7 +4,7 @@ import { parsedEnvs } from "../config/envs";
 
 const handleErrorMiddleware = async (
 	error: Error,
-	_request: Request,
+	request: Request,
 	response: Response,
 	_next: NextFunction,
 ) => {
