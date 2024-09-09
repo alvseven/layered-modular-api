@@ -91,7 +91,7 @@ Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais)
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
-```bash
+```
 pnpm docker:test
 ```
 
