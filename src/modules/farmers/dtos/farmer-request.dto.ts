@@ -106,10 +106,9 @@ export const updateFarmerByIdRequestDto = (data: unknown) => {
 		name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
 	});
 
-	const idSchema = z.object({ id: z.string().uuid() });
-
 	const updateFarmerRequestSchema = z
 		.object({
+			id: z.string().uuid(),
 			producerName: z.string().min(3),
 			farmName: z.string().min(3),
 			city: z.string().min(5),
@@ -120,22 +119,9 @@ export const updateFarmerByIdRequestDto = (data: unknown) => {
 			crops: z.array(cropSchema),
 			document: z.union([z.string().length(11), z.string().length(14)]),
 		})
-		.partial()
-		.merge(idSchema)
-		.superRefine((data, ctx) => {
-			if (data.arableArea && data.vegetationArea && data.totalArea) {
-				validateArea(
-					{
-						arableArea: data.arableArea,
-						vegetationArea: data.vegetationArea,
-						totalArea: data.totalArea,
-					},
-					ctx,
-				);
-			}
-			if (data.document) {
-				validateDocument(data.document, ctx);
-			}
+		.superRefine(({ arableArea, vegetationArea, totalArea, document }, ctx) => {
+			validateArea({ arableArea, vegetationArea, totalArea }, ctx);
+			validateDocument(document, ctx);
 		});
 
 	return validate(updateFarmerRequestSchema, data);
