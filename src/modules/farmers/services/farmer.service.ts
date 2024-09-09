@@ -67,12 +67,14 @@ export const updateById = async ({
 		return error("Farmer not found", 404);
 	}
 
-	const farmerAlreadyExists = await farmersRepository().getByDocument(
-		data.document,
-	);
+	if (data.document) {
+		const farmerAlreadyExists = await farmersRepository().getByDocument(
+			data.document,
+		);
 
-	if (farmerAlreadyExists) {
-		return error("Farmer already registered", 409);
+		if (farmerAlreadyExists) {
+			return error("Farmer already registered", 409);
+		}
 	}
 
 	const updatedFarmer = await farmersRepository().updateById(id, data);
