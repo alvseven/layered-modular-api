@@ -15,11 +15,11 @@ app.use(express.json());
 const isTestEnv = process.env.NODE_ENV === "test";
 
 if (!isTestEnv) {
-	const stream = pinoPretty({
-		colorize: true,
-	});
+  const stream = pinoPretty({
+    colorize: true,
+  });
 
-	app.use(pino(stream));
+  app.use(pino(stream));
 }
 app.use("/farmers", farmersRoutes);
 

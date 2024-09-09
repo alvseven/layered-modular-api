@@ -6,8 +6,11 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/shared/server.ts",
-    "dev": "tsx watch src/shared/server.ts | pino-pretty",
+    "docker:dev": "tsx watch src/shared/server.ts | pino-pretty",
+    "dev": "docker compose up api",
     "build": "tsup src",
+    "db:seed":"docker exec api sh -c 'pnpm prisma db seed'",
+    "docker:test": "docker compose up api-test",
     "test:e2e": "vitest",
     "lint:check": "pnpm dlx @biomejs/biome format  ./src",
     "lint:apply": "pnpm dlx @biomejs/biome lint --write ./src",
