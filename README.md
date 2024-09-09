@@ -50,7 +50,7 @@ A aplicação segue a estrutura modular e é separada em camadas:
 
 - **pnpm**: Sistema de gerenciamento de pacotes (usado para instalar dependências localmente, se necessário)
 
-### Variáveis de ambiente
+#### Variáveis de ambiente
 
 Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo de arquivo `.env` está disponível como `.env.example`. As variáveis principais incluem:
 
@@ -60,15 +60,15 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 > [!IMPORTANT]  
 > Na variável de ambiente `DATABASE_URL`, você pode alterar a senha do usuário e nome do banco de dados, mas é importante que o nome do usuário permaneça o mesmo que o definido em `.env.example`(usuário padrão do postgres), a porta deve ser a porta padrão do container postgres(5432), e o host deve ter o mesmo nome definido no serviço do `docker-compose.yml`(postgres)
 
-### Passos para rodar a aplicação com Docker
+#### Passos para rodar a aplicação com Docker
 
 1. Clone este repositório:
 
-   ```bash
-   git clone https://github.com/seu-usuario/experian-challenge-api.git
+```bash
+git clone https://github.com/seu-usuario experian-challenge-api.git
 
-   cd experian-challenge-api
-    ```
+cd experian-challenge-api
+```
 
 2. Configure as variáveis de ambiente:
 
@@ -82,7 +82,7 @@ cp .env.example .env
 pnpm dev
 ```
 
-### Rodando o seed
+#### Rodando o seed
 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
@@ -90,7 +90,7 @@ Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais)
 pnpm db:seed
 ```
 
-### Rodando os testes end-to-end
+#### Rodando os testes end-to-end
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
@@ -98,7 +98,7 @@ Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e r
 pnpm docker:test
 ```
 
-### Arquitetura da Aplicação
+#### Arquitetura da Aplicação
 
 - **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
 
