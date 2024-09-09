@@ -98,16 +98,6 @@ Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e r
 pnpm test:e2e
 ```
 
-#### Arquitetura da Aplicação
-
-- **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
-
-- **DTOs**: Objetos de transferência de dados, utilizados para validar dados e definir contratos entre controller e service
-
-- **Services**: Contém as regras de negócio da aplicação, responsável por atender às requisições feitas pelos controllers
-
-- **Repositories**: Camada de persistência dos dados, responsável por interagir com o banco de dados
-
 ### CI/CD
 
 A aplicação conta com uma pipeline de CI configurada para garantir a qualidade do código e a integridade da aplicação. A pipeline realiza as seguintes etapas:
@@ -124,3 +114,13 @@ A pipeline é acionada automaticamente a partir de pull requests direcionados pa
 O deploy da aplicação foi realizado em uma instância EC2 na AWS. A aplicação está disponível publicamente na [URL](http://34.230.11.112:3333).
 
 **Observação**: A aplicação está acessível via HTTP. Considerações futuras incluem a configuração de HTTPS para maior segurança
+
+#### Arquitetura da Aplicação
+
+- **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
+
+- **DTOs**: Objetos de transferência de dados, utilizados para validar dados e definir contratos entre controller e service
+
+- **Services**: Contém as regras de negócio da aplicação, responsável por atender às requisições feitas pelos controllers
+
+- **Repositories**: Camada de persistência dos dados, responsável por interagir com o banco de dados
