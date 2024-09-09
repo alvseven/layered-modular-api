@@ -8,53 +8,35 @@ datasource db {
 }
 
 model Farmer {
-  id String @id @default(uuid())
-
-  document String @unique
-
-  producerName String
-
-  farmName String
-
-  city String
-
-  state String
-
-  totalArea Float
-
-  arableArea Float
-
+  id             String   @id @default(uuid())
+  document       String   @unique
+  producerName   String
+  farmName       String
+  city           String
+  state          String
+  totalArea      Float
+  arableArea     Float
   vegetationArea Float
-
-  crops Crop[]
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  crops          Crop[]
 
   @@map("farmers")
 }
 
 model Crop {
-  id String @id @default(uuid())
-
-  name CropType
-
+  id       String   @id @default(uuid())
+  name     CropType
   farmerId String
-
-  farmer Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  farmer   Farmer   @relation(fields: [farmerId], references: [id], onDelete: Cascade)
 
   @@map("crops")
 }
 
 enum CropType {
   SOYBEAN
-
   CORN
-
   COTTON
-
   COFFEE
-
   SUGARCANE
 }

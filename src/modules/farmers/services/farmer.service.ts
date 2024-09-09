@@ -83,7 +83,7 @@ export const updateById = async ({
 export const removeById = async (
 	id: ExtractParseSuccessResult<ReturnType<typeof removeFarmerByIdRequestDto>>,
 ) => {
-	const farmer = farmersRepository().getById(id);
+	const farmer = await farmersRepository().getById(id);
 
 	if (!farmer) {
 		return error("Farmer not found", 404);

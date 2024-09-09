@@ -31,4 +31,4 @@ CREATE TABLE "crops" (
 CREATE UNIQUE INDEX "farmers_document_key" ON "farmers"("document");
 
 -- AddForeignKey
-ALTER TABLE "crops" ADD CONSTRAINT "crops_farmerId_fkey" FOREIGN KEY ("farmerId") REFERENCES "farmers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "crops" ADD CONSTRAINT "crops_farmerId_fkey" FOREIGN KEY ("farmerId") REFERENCES "farmers"("id") ON DELETE CASCADE ON UPDATE CASCADE;

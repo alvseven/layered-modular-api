@@ -32,5 +32,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run pnpm lint:fix
-        run: pnpm lint:fix
+      - name: Run pnpm lint:check
+        run: pnpm lint:check

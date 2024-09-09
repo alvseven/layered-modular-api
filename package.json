@@ -9,7 +9,7 @@
     "dev": "tsx watch src/shared/server.ts | pino-pretty",
     "build": "tsup src",
     "test:e2e": "vitest",
-    "lint:format": "pnpm dlx @biomejs/biome format --write ./src",
+    "lint:check": "pnpm dlx @biomejs/biome format  ./src",
     "lint:apply": "pnpm dlx @biomejs/biome lint --write ./src",
     "lint:fix": "pnpm dlx @biomejs/biome check --write ./src"
   },
