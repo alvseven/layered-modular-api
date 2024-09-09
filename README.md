@@ -72,35 +72,33 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 
 2. Configure as variáveis de ambiente:
 
-    ```bash
-    cp .env.example .env
-    ```
+```bash
+cp .env.example .env
+```
 
 3. Inicie a aplicação:
 
-    ```bash
-    pnpm dev
-    ```
+```bash
+pnpm dev
+```
 
-# Rodando o seed
+### Rodando o seed
 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
-    ```bash
+```bash
+pnpm db:seed
+```
 
-    pnpm db:seed
-    
-    ```
-
-# Rodando os testes end-to-end
+### Rodando os testes end-to-end
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
-```
+```bash
 pnpm docker:test
 ```
 
-# Arquitetura da Aplicação
+### Arquitetura da Aplicação
 
 - **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
 
@@ -109,5 +107,3 @@ pnpm docker:test
 - **Services**: Contém as regras de negócio da aplicação, responsável por atender às requisições feitas pelos controllers
 
 - **Repositories**: Camada de persistência dos dados, responsável por interagir com o banco de dados
-
-
