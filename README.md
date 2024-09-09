@@ -63,19 +63,22 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 ### Passos para rodar a aplicação com Docker
 
 1. Clone este repositório:
+
    ```bash
    git clone https://github.com/seu-usuario/experian-challenge-api.git
 
    cd experian-challenge-api
     ```
 
-2. Configure as variáveis de ambiente
+2. Configure as variáveis de ambiente:
+
     ```bash
     cp .env.example .env
     ```
 
-3. Inicie a aplicação
-    ```
+3. Inicie a aplicação:
+
+    ```bash
     pnpm dev
     ```
 
@@ -83,7 +86,7 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
-    ```
+    ```bash
     pnpm db:seed
     ```
 
