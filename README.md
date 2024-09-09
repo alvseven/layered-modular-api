@@ -100,9 +100,9 @@ pnpm test:e2e
 
 ### CI/CD
 
-A aplicação conta com uma pipeline de CI configurada para garantir a qualidade do código e a integridade da aplicação. A pipeline realiza as seguintes etapas:
+A aplicação conta com uma pipeline de CI configurada para garantir a qualidade do código e a integridade da aplicação, a pipeline realiza as seguintes etapas:
 
-- **Linting**: Verifica a conformidade do código com as regras de estilo e padrões definidos.
+- **Linting**: Verifica a conformidade do código com as regras de estilo e padrões definidos
 - **Testes End-to-End**: Executa testes completos da aplicação para garantir que todas as funcionalidades estejam funcionando como esperado
 
 A pipeline é acionada automaticamente a partir de pull requests direcionados para a branch `main`, garantindo que o código seja revisado e validado antes de ser mesclado
@@ -111,9 +111,9 @@ A pipeline é acionada automaticamente a partir de pull requests direcionados pa
 
 ### Deploy
 
-O deploy da aplicação foi realizado em uma instância EC2 na AWS. A aplicação está disponível publicamente na [URL](http://34.230.11.112:3333).
+O deploy da aplicação foi realizado em uma instância EC2 na AWS, a aplicação está disponível publicamente na [URL](http://34.230.11.112:3333).
 
-**Observação**: A aplicação está acessível via HTTP. Considerações futuras incluem a configuração de HTTPS para maior segurança
+**Observação**: A aplicação está acessível via HTTP, considerações futuras incluem a configuração de HTTPS para maior segurança
 
 #### Arquitetura da Aplicação
 
