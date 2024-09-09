@@ -1,148 +1,148 @@
 import { type RefinementCtx, type ZodSchema, z } from "zod";
 
+import type { FarmerModel } from "@/shared/database/prisma-client";
 import { validateCNPJ } from "../../../shared/helpers/validate-cnpj";
 import { validateCPF } from "../../../shared/helpers/validate-cpf";
 import { zodCustomErrorMap } from "../../../shared/helpers/zod-error-map";
-import type { FarmerModel } from "@/shared/database/prisma-client";
 
 type SuccessParse<T> = {
-  success: true;
-  data: T;
+	success: true;
+	data: T;
 };
 
 type ErrorParse = {
-  success: false;
-  errors: string[];
+	success: false;
+	errors: string[];
 };
 
 export type ParseResult<T> = SuccessParse<T> | ErrorParse;
 
 const validate = <T>(schema: ZodSchema<T>, data: unknown): ParseResult<T> => {
-  const result = schema.safeParse(data, {
-    errorMap: zodCustomErrorMap,
-  });
+	const result = schema.safeParse(data, {
+		errorMap: zodCustomErrorMap,
+	});
 
-  if (result.success) {
-    return { success: true, data: result.data };
-  }
+	if (result.success) {
+		return { success: true, data: result.data };
+	}
 
-  const errorMessages = result.error.errors.map(
-    (error) => `error: ${error.message} `
-  );
+	const errorMessages = result.error.errors.map(
+		(error) => `error: ${error.message} `,
+	);
 
-  return { success: false, errors: errorMessages };
+	return { success: false, errors: errorMessages };
 };
 
 const validateDocument = (document: string, ctx: RefinementCtx) => {
-  if (document.length === 11 && !validateCPF(document)) {
-    ctx.addIssue({
-      path: ["document"],
-      message: "Invalid CPF",
-      code: "custom",
-    });
-  }
-  if (document.length === 14 && !validateCNPJ(document)) {
-    ctx.addIssue({
-      path: ["document"],
-      message: "Invalid CNPJ",
-      code: "custom",
-    });
-  }
+	if (document.length === 11 && !validateCPF(document)) {
+		ctx.addIssue({
+			path: ["document"],
+			message: "Invalid CPF",
+			code: "custom",
+		});
+	}
+	if (document.length === 14 && !validateCNPJ(document)) {
+		ctx.addIssue({
+			path: ["document"],
+			message: "Invalid CNPJ",
+			code: "custom",
+		});
+	}
 };
 
 type AreaData = {
-  arableArea: FarmerModel["arableArea"];
-  vegetationArea: FarmerModel["vegetationArea"];
-  totalArea: FarmerModel["totalArea"];
+	arableArea: FarmerModel["arableArea"];
+	vegetationArea: FarmerModel["vegetationArea"];
+	totalArea: FarmerModel["totalArea"];
 };
 
 const validateArea = (
-  { arableArea, vegetationArea, totalArea }: AreaData,
-  ctx: RefinementCtx
+	{ arableArea, vegetationArea, totalArea }: AreaData,
+	ctx: RefinementCtx,
 ) => {
-  if (arableArea + vegetationArea > totalArea) {
-    ctx.addIssue({
-      path: ["totalArea"],
-      message:
-        "The sum of arable area and vegetation area cannot be greater than the total area",
-      code: "custom",
-    });
-  }
+	if (arableArea + vegetationArea > totalArea) {
+		ctx.addIssue({
+			path: ["totalArea"],
+			message:
+				"The sum of arable area and vegetation area cannot be greater than the total area",
+			code: "custom",
+		});
+	}
 };
 
 export const getFarmerByIdRequestDto = (data: unknown) => {
-  const getFarmerRequestSchema = z.string().uuid();
+	const getFarmerRequestSchema = z.string().uuid();
 
-  return validate(getFarmerRequestSchema, data);
+	return validate(getFarmerRequestSchema, data);
 };
 
 export const createFarmerRequestDto = (data: unknown) => {
-  const cropSchema = z.object({
-    name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
-  });
+	const cropSchema = z.object({
+		name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
+	});
 
-  const createFarmerRequestSchema = z
-    .object({
-      producerName: z.string().min(3),
-      farmName: z.string().min(3),
-      document: z.union([z.string().length(11), z.string().length(14)]),
-      state: z.string().length(2),
-      city: z.string().min(3),
-      totalArea: z.number().positive().gt(0),
-      arableArea: z.number().positive().gt(0),
-      vegetationArea: z.number().positive().gt(0),
-      crops: z.array(cropSchema),
-    })
-    .superRefine(({ document, arableArea, vegetationArea, totalArea }, ctx) => {
-      validateArea({ arableArea, vegetationArea, totalArea }, ctx);
-      validateDocument(document, ctx);
-    });
+	const createFarmerRequestSchema = z
+		.object({
+			producerName: z.string().min(3),
+			farmName: z.string().min(3),
+			document: z.union([z.string().length(11), z.string().length(14)]),
+			state: z.string().length(2),
+			city: z.string().min(3),
+			totalArea: z.number().positive().gt(0),
+			arableArea: z.number().positive().gt(0),
+			vegetationArea: z.number().positive().gt(0),
+			crops: z.array(cropSchema),
+		})
+		.superRefine(({ document, arableArea, vegetationArea, totalArea }, ctx) => {
+			validateArea({ arableArea, vegetationArea, totalArea }, ctx);
+			validateDocument(document, ctx);
+		});
 
-  return validate(createFarmerRequestSchema, data);
+	return validate(createFarmerRequestSchema, data);
 };
 
 export const updateFarmerByIdRequestDto = (data: unknown) => {
-  const cropSchema = z.object({
-    name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
-  });
+	const cropSchema = z.object({
+		name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
+	});
 
-  const idSchema = z.object({ id: z.string().uuid() });
+	const idSchema = z.object({ id: z.string().uuid() });
 
-  const updateFarmerRequestSchema = z
-    .object({
-      producerName: z.string().min(3),
-      farmName: z.string().min(3),
-      city: z.string().min(5),
-      state: z.string().length(2),
-      totalArea: z.number().positive().gt(0),
-      arableArea: z.number().positive().gt(0),
-      vegetationArea: z.number().positive().gt(0),
-      crops: z.array(cropSchema),
-      document: z.union([z.string().length(11), z.string().length(14)]),
-    })
-    .partial()
-    .merge(idSchema)
-    .superRefine((data, ctx) => {
-      if (data.arableArea && data.vegetationArea && data.totalArea) {
-        validateArea(
-          {
-            arableArea: data.arableArea,
-            vegetationArea: data.vegetationArea,
-            totalArea: data.totalArea,
-          },
-          ctx
-        );
-      }
-      if (data.document) {
-        validateDocument(data.document, ctx);
-      }
-    });
+	const updateFarmerRequestSchema = z
+		.object({
+			producerName: z.string().min(3),
+			farmName: z.string().min(3),
+			city: z.string().min(5),
+			state: z.string().length(2),
+			totalArea: z.number().positive().gt(0),
+			arableArea: z.number().positive().gt(0),
+			vegetationArea: z.number().positive().gt(0),
+			crops: z.array(cropSchema),
+			document: z.union([z.string().length(11), z.string().length(14)]),
+		})
+		.partial()
+		.merge(idSchema)
+		.superRefine((data, ctx) => {
+			if (data.arableArea && data.vegetationArea && data.totalArea) {
+				validateArea(
+					{
+						arableArea: data.arableArea,
+						vegetationArea: data.vegetationArea,
+						totalArea: data.totalArea,
+					},
+					ctx,
+				);
+			}
+			if (data.document) {
+				validateDocument(data.document, ctx);
+			}
+		});
 
-  return validate(updateFarmerRequestSchema, data);
+	return validate(updateFarmerRequestSchema, data);
 };
 
 export const removeFarmerByIdRequestDto = (data: unknown) => {
-  const removeFarmerRequestSchema = z.string().uuid();
+	const removeFarmerRequestSchema = z.string().uuid();
 
-  return validate(removeFarmerRequestSchema, data);
+	return validate(removeFarmerRequestSchema, data);
 };
