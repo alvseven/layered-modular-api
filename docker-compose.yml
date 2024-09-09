@@ -32,7 +32,7 @@ services:
       - "3334:3334"
     env_file:
       - ./.env.test
-    command: ["sh", "-c", "pnpm prisma migrate deploy && pnpm docker:dev & sleep 3 && pnpm test:e2e"]
+    command: ["sh", "-c", "pnpm prisma migrate deploy && pnpm docker:dev & sleep 3 && pnpm docker:test"]
     depends_on:
       database-test:
         condition: service_healthy
