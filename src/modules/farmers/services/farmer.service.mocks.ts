@@ -20,10 +20,10 @@ export const createFarmerMock: ExtractParseSuccessResult<
   crops: [{ name: "SOYBEAN" }, { name: "CORN" }],
 };
 
-export const updateFarmerMock: ExtractParseSuccessResult<
-  ReturnType<typeof updateFarmerByIdRequestDto>
->;
-"id" = {
+export const updateFarmerMock: StrictOmit<
+  ExtractParseSuccessResult<ReturnType<typeof updateFarmerByIdRequestDto>>,
+  "id"
+> = {
   producerName: "Luke Berry",
   farmName: "Fazenda vsc",
   document: "20614895081",
