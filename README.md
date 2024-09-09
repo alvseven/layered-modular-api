@@ -70,7 +70,7 @@ git clone https://github.com/seu-usuario experian-challenge-api.git
 cd experian-challenge-api
 ```
 
-2. Configure as variáveis de ambiente:
+2. Crie um arquivo ```.env```, utilizando o arquivo ```.env.example``` como exemplo:
 
 ```bash
 cp .env.example .env
@@ -95,7 +95,7 @@ pnpm seed
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
 ```bash
-pnpm test
+pnpm test:e2e
 ```
 
 #### Arquitetura da Aplicação
