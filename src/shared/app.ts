@@ -10,13 +10,17 @@ import { handleErrorMiddleware } from "./middlewares/handle-error";
 
 export const app = express();
 
-const stream = pinoPretty({
-	colorize: true,
-});
-
 app.use(express.json());
-app.use(pino(stream));
 
+const isTestEnv = process.env.NODE_ENV === "test";
+
+if (!isTestEnv) {
+	const stream = pinoPretty({
+		colorize: true,
+	});
+
+	app.use(pino(stream));
+}
 app.use("/farmers", farmersRoutes);
 
 app.use("/hello-world", (_request, res) =>

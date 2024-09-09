@@ -1,4 +1,4 @@
-import { type Farmer, PrismaClient, type Crop } from "@prisma/client";
+import { type Crop, type Farmer, PrismaClient } from "@prisma/client";
 
 export const prisma = new PrismaClient();
 

@@ -37,17 +37,23 @@ export const createFarmerRequestDto = (data: unknown) => {
     name: z.enum(["SOYBEAN", "CORN", "COTTON", "COFFEE", "SUGARCANE"]),
   });
 
-  const createFarmerRequestSchema = z.object({
-    producerName: z.string().min(3),
-    farmName: z.string().min(3),
-    document: z.union([z.string().length(11), z.string().length(14)]),
-    state: z.string().length(2),
-    city: z.string().min(3),
-    totalArea: z.number().positive().gt(0),
-    arableArea: z.number().positive().gt(0),
-    vegetationArea: z.number().positive().gt(0),
-    crops: z.array(cropSchema),
-  });
+  const createFarmerRequestSchema = z
+    .object({
+      producerName: z.string().min(3),
+      farmName: z.string().min(3),
+      document: z.union([z.string().length(11), z.string().length(14)]),
+      state: z.string().length(2),
+      city: z.string().min(3),
+      totalArea: z.number().positive().gt(0),
+      arableArea: z.number().positive().gt(0),
+      vegetationArea: z.number().positive().gt(0),
+      crops: z.array(cropSchema),
+    })
+    .refine((data) => data.arableArea + data.vegetationArea <= data.totalArea, {
+      message:
+        "The sum of arable area and vegetation area cannot be greater than the total area",
+      path: ["arableArea", "vegetationArea"],
+    });
 
   return validate(createFarmerRequestSchema, data);
 };

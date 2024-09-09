@@ -1,7 +1,7 @@
 import {
-  type FarmerModel,
-  prisma,
-  CropModel,
+	type CropModel,
+	type FarmerModel,
+	prisma,
 } from "../../../shared/database/prisma-client";
 
 import type { StrictOmit } from "@/shared/helpers/types/strict-omit";
@@ -12,78 +12,106 @@ import type { StrictOmit } from "@/shared/helpers/types/strict-omit";
 */
 
 export const farmersRepository = () => {
-  const repository = prisma.farmer;
+	const repository = prisma.farmer;
 
-  const getById = (id: FarmerModel["id"]) => {
-    const farmerFound = repository.findUnique({ where: { id } });
+	const getById = (id: FarmerModel["id"]) => {
+		const farmerFound = repository.findUnique({
+			where: { id },
+			include: {
+				crops: true,
+			},
+		});
 
-    return farmerFound;
-  };
+		return farmerFound;
+	};
 
-  const getByDocument = (document: FarmerModel["document"]) => {
-    const farmerFound = repository.findUnique({ where: { document } });
+	const getByDocument = (document: FarmerModel["document"]) => {
+		const farmerFound = repository.findUnique({ where: { document } });
 
-    return farmerFound;
-  };
+		return farmerFound;
+	};
 
-  const getAll = () => {
-    const farmers = repository.findMany({
-      include: {
-        crops: true,
-      },
-    });
+	const getAll = () => {
+		const farmers = repository.findMany({
+			include: {
+				crops: true,
+			},
+		});
 
-    return farmers;
-  };
+		return farmers;
+	};
 
-  const create = async (
-    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt"> & {
-      crops: Array<Pick<CropModel, "name">>;
-    }
-  ) => {
-    const createdFarmer = await repository.create({
-      data: {
-        ...data,
-        crops: {
-          create: data.crops.map((crop) => ({
-            name: crop.name,
-          })),
-        },
-      },
-      include: {
-        crops: true,
-      },
-    });
+	const create = async (
+		data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt"> & {
+			crops: Array<Pick<CropModel, "name">>;
+		},
+	) => {
+		const createdFarmer = await repository.create({
+			data: {
+				...data,
+				crops: {
+					create: data.crops.map((crop) => ({
+						name: crop.name,
+					})),
+				},
+			},
+			include: {
+				crops: true,
+			},
+		});
 
-    return createdFarmer;
-  };
+		return createdFarmer;
+	};
 
-  const updateById = async (
-    id: FarmerModel["id"],
-    data: StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt">
-  ) => {
-    const updatedFarmer = await repository.update({
-      where: { id },
-      data,
-    });
+	const updateById = async (
+		id: FarmerModel["id"],
+		data: Partial<
+			StrictOmit<FarmerModel, "id" | "createdAt" | "updatedAt"> & {
+				crops: Array<Pick<CropModel, "name">>;
+			}
+		>,
+	) => {
+		const { crops, ...farmerData } = data;
 
-    return updatedFarmer;
-  };
+		const cropsUpdate = crops
+			? {
+					crops: {
+						deleteMany: {},
+						create: crops.map((crop) => ({
+							name: crop.name,
+						})),
+					},
+				}
+			: undefined;
 
-  const removeById = async (id: FarmerModel["id"]) => {
-    await repository.delete({
-      where: {
-        id,
-      },
-    });
-  };
+		const updatedFarmer = await repository.update({
+			where: { id },
+			data: {
+				...farmerData,
+				...cropsUpdate,
+			},
+			include: {
+				crops: true,
+			},
+		});
 
-  return {
-    getById,
-    getByDocument,
-    getAll,
-    create,
-    updateById,
-    removeById,
-  };
+		return updatedFarmer;
+	};
+
+	const removeById = async (id: FarmerModel["id"]) => {
+		await repository.delete({
+			where: {
+				id,
+			},
+		});
+	};
+
+	return {
+		getById,
+		getByDocument,
+		getAll,
+		create,
+		updateById,
+		removeById,
+	};
 };
