@@ -50,7 +50,7 @@ A aplicação segue a estrutura modular e é separada em camadas:
 
 - **pnpm**: Sistema de gerenciamento de pacotes (usado para instalar dependências localmente, se necessário)
 
-### Variáveis de ambiente
+#### Variáveis de ambiente
 
 Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo de arquivo `.env` está disponível como `.env.example`. As variáveis principais incluem:
 
@@ -60,42 +60,45 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 > [!IMPORTANT]  
 > Na variável de ambiente `DATABASE_URL`, você pode alterar a senha do usuário e nome do banco de dados, mas é importante que o nome do usuário permaneça o mesmo que o definido em `.env.example`(usuário padrão do postgres), a porta deve ser a porta padrão do container postgres(5432), e o host deve ter o mesmo nome definido no serviço do `docker-compose.yml`(postgres)
 
-### Passos para rodar a aplicação com Docker
+#### Passos para rodar a aplicação com Docker
 
 1. Clone este repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/experian-challenge-api.git
 
-   cd experian-challenge-api
-    ```
+```bash
+git clone https://github.com/seu-usuario experian-challenge-api.git
 
-2. Configure as variáveis de ambiente
-    ```bash
-    cp .env.example .env
-    ```
+cd experian-challenge-api
+```
 
-3. Inicie a aplicação
-    ```
-    pnpm dev
-    ```
+2. Configure as variáveis de ambiente:
 
-# Rodando o seed
+```bash
+cp .env.example .env
+```
+
+3. Inicie a aplicação:
+
+```bash
+pnpm dev
+```
+
+#### Rodando o seed
 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
-    ```
-    pnpm db:seed
-    ```
+```bash
+pnpm seed
+```
 
-# Rodando os testes end-to-end
+#### Rodando os testes end-to-end
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
 
 ```bash
-pnpm docker:test
+pnpm test
 ```
 
-# Arquitetura da Aplicação
+#### Arquitetura da Aplicação
 
 - **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
 
@@ -104,5 +107,3 @@ pnpm docker:test
 - **Services**: Contém as regras de negócio da aplicação, responsável por atender às requisições feitas pelos controllers
 
 - **Repositories**: Camada de persistência dos dados, responsável por interagir com o banco de dados
-
-
