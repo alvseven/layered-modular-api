@@ -3,16 +3,8 @@ import axios from "axios";
 import { parsedEnvs } from "./envs";
 
 export const api = axios.create({
-  baseURL: parsedEnvs.API_URL,
+	baseURL: parsedEnvs.API_URL,
+	validateStatus: (status) => {
+		return status >= 200 && status < 500;
+	},
 });
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response) {
-      return { error: "oii" };
-    }
-
-    return { error: "vish" };
-  }
-);

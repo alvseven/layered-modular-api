@@ -23,11 +23,4 @@ if (!isTestEnv) {
 }
 app.use("/farmers", farmersRoutes);
 
-app.use("/hello-world", (_request, res) =>
-	res.json({
-		date: new Date().toISOString(),
-		status: "ok",
-	}),
-);
-
 app.use(handleErrorMiddleware);
