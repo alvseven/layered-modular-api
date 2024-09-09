@@ -58,7 +58,7 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 - `PORT`: Porta onde a API será exposta.
 
 > [!IMPORTANT]  
-> Na variável de ambiente `DATABASE_URL`, você pode alterar a senha do usuário e nome do banco de dados, mas é importante que o nome do usuário, o host e o permaneçam os mesmos
+> Na variável de ambiente `DATABASE_URL`, você pode alterar a senha do usuário e nome do banco de dados, mas é importante que o nome do usuário permaneça o mesmo que o definido em `.env.example`(usuário padrão do postgres), a porta deve ser a porta padrão do container postgres(5432), e o host deve ter o mesmo nome definido no serviço do `docker-compose.yml`(postgres)
 
 ### Passos para rodar a aplicação com Docker
 
