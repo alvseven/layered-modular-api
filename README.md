@@ -87,7 +87,9 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
     ```bash
+
     pnpm db:seed
+    
     ```
 
 # Rodando os testes end-to-end
