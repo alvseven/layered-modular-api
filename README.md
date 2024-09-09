@@ -84,7 +84,7 @@ pnpm dev
 
 #### Rodando o seed
 
-Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
+Para popular o banco de dados com dados (criando 10 produtores rurais), com a sua aplicação rodando, abra um novo terminal e execute o comando:
 
 ```bash
 pnpm seed
