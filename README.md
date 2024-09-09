@@ -87,7 +87,7 @@ pnpm dev
 Para popular o banco de dados com dados de exemplo(criando 10 produtores rurais), execute o seguinte comando:
 
 ```bash
-pnpm db:seed
+pnpm seed
 ```
 
 #### Rodando os testes end-to-end
