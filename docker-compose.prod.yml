@@ -15,8 +15,6 @@ services:
       database:
         condition: service_healthy
     restart: always
-    networks:
-      - my-network
 
   database:
     container_name: postgres
@@ -30,12 +28,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - my-network
-
-networks:
-  my-network:
-    driver: bridge
 
 volumes:
   postgres_data:
