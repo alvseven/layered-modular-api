@@ -1,12 +1,14 @@
 # Experian Challenge API
 
-Esta API foi desenvolvida para realizar operações de Create, Read, Update e Delete (CRUD) em uma entidade de produtores rurais, utilizando uma arquitetura modular em camadas (Layered Modular Architecture). Com foco em escalabilidade e manutenibilidade, e separação de responsabilidades
+Esta API foi desenvolvida para realizar operações de Create, Read, Update e Delete (CRUD) em uma entidade de produtores rurais, utilizando uma arquitetura modular em camadas (Layered Modular Architecture). Com foco em escalabilidade e manutenibilidade
 
 ## Tecnologias Utilizadas
 
 - **Node.js**: Ambiente de execução JavaScript
 
 - **Express**: Framework web para Node.js
+
+- **Postgres**: Banco de dados relacional
 
 - **Prisma**: ORM para trabalhar com o banco de dados PostgreSQL
 
@@ -26,19 +28,26 @@ Esta API foi desenvolvida para realizar operações de Create, Read, Update e De
 
 A aplicação segue a estrutura modular e é separada em camadas:
 
-- **/modules**: Contém os módulos da aplicação. Cada módulo tem suas próprias rotas, controladores, dtos, serviços, repositórios e etc
-  - **/farmers**: Módulo de produtores rurais
-- **/shared**: Contém funcionalidades e configurações compartilhadas entre os módulos
-  - **/config**: Configurações gerais da aplicação
-  - **/database**: Configurações e helpers relacionados ao banco de dados
-  - **/helpers**: Funções e tipos auxiliares
-  - **/middlewares**: Middlewares de aplicação
+- **/modules**: contém os módulos da aplicação, cada módulo tem suas próprias rotas, controladores, dtos, serviços, repositórios e etc
+
+  - **/farmers**: módulo de produtores rurais
+
+- **/shared**: contém funcionalidades e configurações compartilhadas entre os módulos
+
+  - **/config**: configurações gerais da aplicação
+
+  - **/database**: configurações e helpers relacionados ao banco de dados
+
+  - **/helpers**: funções e tipos auxiliares
+
+  - **/middlewares**: middlewares de aplicação
 
 ## Como rodar a aplicação
 
 ### Requisitos
 
 - **Docker**: Certifique-se de que o Docker está instalado em sua máquina
+
 - **pnpm**: Sistema de gerenciamento de pacotes (usado para instalar dependências localmente, se necessário)
 
 ### Variáveis de ambiente
@@ -72,15 +81,11 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 
 > [!WARNING]  
 > O comando `make dev` no Windows pode não funcionar diretamente, neste caso, utilize o comando equivalente definido no `Makefile`:
-    ```
-    docker compose up api
-    ```
+    `docker compose up api`
 
 # Rodando os testes end-to-end
 
 Os testes e2e são executados utilizando o Vitest como ferramenta de testes, e rodam dentro de um container docker, para rodar os testes execute o seguinte comando:
-
-Execute o comando para subir o ambiente de teste:
 
 ```bash
 make test-e2e
@@ -88,9 +93,7 @@ make test-e2e
 
 > [!WARNING]  
 > O comando `make test-e2e` no Windows pode não funcionar diretamente, neste caso, utilize o comando equivalente definido no `Makefile`:
-    ```
-    docker compose up api-test
-    ```
+    `docker compose up api-test`
 
 # Arquitetura da Aplicação
 
