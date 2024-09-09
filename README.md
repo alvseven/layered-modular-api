@@ -107,3 +107,20 @@ pnpm test:e2e
 - **Services**: Contém as regras de negócio da aplicação, responsável por atender às requisições feitas pelos controllers
 
 - **Repositories**: Camada de persistência dos dados, responsável por interagir com o banco de dados
+
+### CI/CD
+
+A aplicação conta com uma pipeline de CI configurada para garantir a qualidade do código e a integridade da aplicação. A pipeline realiza as seguintes etapas:
+
+- **Linting**: Verifica a conformidade do código com as regras de estilo e padrões definidos.
+- **Testes End-to-End**: Executa testes completos da aplicação para garantir que todas as funcionalidades estejam funcionando como esperado
+
+A pipeline é acionada automaticamente a partir de pull requests direcionados para a branch `main`, garantindo que o código seja revisado e validado antes de ser mesclado
+
+**Observação**: A aplicação conta com CI, mas considerações futuras incluem a implementação de CD para deploy automático na AWS
+
+### Deploy
+
+O deploy da aplicação foi realizado em uma instância EC2 na AWS. A aplicação está disponível publicamente na [URL](http://34.230.11.112:3333).
+
+**Observação**: A aplicação está acessível via HTTP. Considerações futuras incluem a configuração de HTTPS para maior segurança
