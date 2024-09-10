@@ -115,7 +115,7 @@ O deploy da aplicação foi realizado em uma instância EC2 na AWS, a aplicaçã
 
 **Observação**: A aplicação está acessível via HTTP, considerações futuras incluem a configuração de HTTPS para maior segurança
 
-#### Arquitetura da Aplicação
+### Arquitetura da Aplicação
 
 - **Controllers**: Responsável por lidar com as requisições HTTP e invocar os serviços apropriados
 
