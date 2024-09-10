@@ -102,6 +102,27 @@ describe("Farmers service", () => {
         message: "Farmer already registered",
       });
     });
+
+    test("It should return an error if the sum of arable area and vegetation area are greater than the total area", async () => {
+      const { data: createFarmerResponse } = await api.post(
+        "/farmers",
+        createFarmerMock
+      );
+
+      const { data, status } = await api.put(
+        `/farmers/${createFarmerResponse.id}`,
+        {
+          ...updateFarmerMock,
+          arableArea: 300,
+          vegetationArea: 50,
+          totalArea: 200,
+        }
+      );
+      expect(status).toBe(400);
+      expect(data.errors[0]).toMatch(
+        "error: The sum of arable area and vegetation area cannot be greater than the total area"
+      );
+    });
   });
 
   describe("Delete farmer", () => {
