@@ -12,7 +12,7 @@ Esta API foi desenvolvida para realizar operações de Create, Read, Update e De
 
 - **Prisma**: ORM para trabalhar com o banco de dados PostgreSQL
 
-- **TypeScript**: Superset de JavaScript que adiciona tipagem estática, ajudando a detectar erros em tempo de desenvolvimento e tornando o código mais robusto e fácil de manter
+- **TypeScript**: Linguagem de programação fortemente tipada, que ajuda a detectar erros em tempo de desenvolvimento e torna o código mais robusto e fácil de manter
 
 - **Vitest**: Ferramenta de testes para realizar testes de ponta a ponta (e2e)
 
