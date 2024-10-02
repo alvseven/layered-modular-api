@@ -1,4 +1,4 @@
-# Experian Challenge API
+# Layered modular API
 
 Esta API foi desenvolvida para realizar operações de Create, Read, Update e Delete (CRUD) em uma entidade de produtores rurais, utilizando uma arquitetura modular em camadas (Layered Modular Architecture). Com foco em escalabilidade e manutenibilidade
 
