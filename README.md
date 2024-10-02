@@ -65,9 +65,9 @@ Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo 
 1. Clone este repositório:
 
 ```bash
-git clone https://github.com/seu-usuario experian-challenge-api.git
+git clone https://github.com/seu-usuario layered-modular-api.git
 
-cd experian-challenge-api
+cd layered-modular-api
 ```
 
 2. Crie um arquivo ```.env```, utilizando o arquivo ```.env.example``` como exemplo:
@@ -108,12 +108,6 @@ A aplicação conta com uma pipeline de CI configurada para garantir a qualidade
 A pipeline é acionada automaticamente a partir de pull requests direcionados para a branch `main`, garantindo que o código seja revisado e validado antes de ser mesclado
 
 **Observação**: A aplicação conta com CI, mas considerações futuras incluem a implementação de CD para deploy automático na AWS
-
-### Deploy
-
-O deploy da aplicação foi realizado em uma instância EC2 na AWS, a aplicação está disponível publicamente na [URL](http://34.230.11.112:3333).
-
-**Observação**: A aplicação está acessível via HTTP, considerações futuras incluem a configuração de HTTPS para maior segurança
 
 ### Arquitetura da Aplicação
 
